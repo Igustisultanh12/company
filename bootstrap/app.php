@@ -48,9 +48,18 @@ return Application::configure(basePath: dirname(__DIR__))
 
             if (in_array($status, [403, 404, 429, 500, 503], true) && ! $request->expectsJson()
                 && (! app()->hasDebugModeEnabled() || in_array($status, [403, 404, 429], true))) {
-                return Inertia::render('Error', ['status' => $status, 'message' => $status === 403 ? $e->getMessage() : null])
-                    ->toResponse($request)
-                    ->setStatusCode($status);
+                // Jika halaman error Inertia sendiri gagal (mis. aset Vite belum di-build
+                // atau database belum siap), kembalikan respons bawaan Laravel agar
+                // tidak berakhir sebagai layar 500 kosong.
+                try {
+                    return Inertia::render('Error', ['status' => $status, 'message' => $status === 403 ? $e->getMessage() : null])
+                        ->toResponse($request)
+                        ->setStatusCode($status);
+                } catch (Throwable $renderError) {
+                    report($renderError);
+
+                    return $response;
+                }
             }
 
             return $response;
