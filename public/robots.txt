@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin
+Disallow: /agen
+Disallow: /panel
+Disallow: /masuk
+Disallow: /invoice
+Allow: /
+
+Sitemap: /sitemap.xml

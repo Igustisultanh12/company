@@ -1,0 +1,13 @@
+{
+    "name": "PT Kreatif Sky Abadi",
+    "short_name": "Kreatif Sky",
+    "description": "Jasa pembuatan website & sistem informasi dari Jember.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fbf8ff",
+    "theme_color": "#7c3aed",
+    "icons": [
+        { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+        { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    ]
+}
