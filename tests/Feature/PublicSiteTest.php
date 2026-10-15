@@ -98,6 +98,15 @@ class PublicSiteTest extends TestCase
         $this->post('/lacak', ['code' => $order->code, 'email' => 'siti@example.com'])->assertRedirect(route('track.show', $order->code));
     }
 
+    public function test_https_behind_reverse_proxy_generates_https_urls(): void
+    {
+        $response = $this->get('/', ['X-Forwarded-Proto' => 'https', 'X-Forwarded-Host' => 'contoh.test', 'X-Forwarded-Port' => '443']);
+
+        $response->assertOk();
+        $this->assertStringContainsString('https://contoh.test', $response->getContent());
+        $this->assertStringNotContainsString('http://contoh.test', $response->getContent());
+    }
+
     public function test_order_validation(): void
     {
         $this->post('/request-website', ['_started' => now()->subMinute()->getTimestampMs()])

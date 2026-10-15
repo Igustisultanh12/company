@@ -19,6 +19,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Percayai reverse proxy (Cloudflare Tunnel / Nginx aaPanel) agar Laravel
+        // tahu request aslinya HTTPS dan membuat URL https://, serta membaca IP
+        // pengunjung asli. Symfony hanya mempercayai REMOTE_ADDR langsung, jadi
+        // header X-Forwarded-For palsu dari klien tidak bisa menyamar IP lain.
+        $middleware->trustProxies(at: '*');
+
         $middleware->web(append: [
             SecurityHeaders::class,
             HandleInertiaRequests::class,

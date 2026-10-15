@@ -280,6 +280,7 @@ Bisa juga memakai fitur **Git deployment / WebHook** aaPanel yang menjalankan `b
 | **419 Page Expired** saat login | `APP_URL` harus sama persis dengan domain (http/https); bila belum HTTPS set `SESSION_SECURE_COOKIE=false`; jalankan `php artisan optimize:clear` |
 | `putenv() / proc_open() has been disabled` | Hapus fungsi tersebut dari *Disabled functions* PHP di aaPanel |
 | `storage:link` gagal | Hapus `symlink` dari *Disabled functions* lalu ulangi |
+| Klik menu/link error `HttpNetworkError` / `violates Content Security Policy` (pakai Cloudflare Tunnel/proxy) | Pastikan sudah `git pull` versi terbaru (proxy dipercaya otomatis), set `APP_URL=https://domain-anda`, lalu `php artisan optimize:clear && php artisan optimize` |
 | Gambar CMS tidak muncul | Jalankan `php artisan storage:link`; pastikan `APP_URL` benar |
 | TTE: *"PDF menggunakan kompresi versi baru"* | Install `qpdf`/`ghostscript` & aktifkan `exec`, atau simpan ulang PDF sebagai PDF 1.4 |
 | Email reset password tidak terkirim | Isi `MAIL_*` (Gmail: gunakan *App Password*) |
